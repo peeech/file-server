@@ -8,7 +8,7 @@
 //  Exposed functions with custom logic https://developer.holochain.org/API_reference
 // -----------------------------------------------------------------
 
-function listEntryCreate(listEntryEntry) {
+function uploadFile(listEntryEntry) {
     var listEntryHash = commit("listEntry", listEntryEntry);
     commit("linkToEntry", {
         Links: [
@@ -18,12 +18,7 @@ function listEntryCreate(listEntryEntry) {
     return listEntryHash;
 }
 
-function listEntryRead(listEntryHash) {
-    var listEntry = get(listEntryHash);
-    return listEntry;
-}
-
-function getAllEntries(params) {
+function getAllFiles(params) {
     return getLinks(App.DNA.Hash, "linkToEntry", {Load: true}).map(function(e) { return e.Entry });
 }
 

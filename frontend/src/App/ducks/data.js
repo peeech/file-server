@@ -1,39 +1,29 @@
 // That's where all the action creators and their reducers live
 
-export const COUNTER_CHANGE = '[Data] Changed Counter';
-export const NEW_LIST_ENTRY = '[Data] Add new list entry';
-export const ADD_TO_DATA = '[Data] Add multiple entries to store.data';
-export const UPDATE_ENTRY_STATUS = '[Data] Update list entry status';
+export const UPLOAD_FILE = '[Data] Upload file to DHT';
+export const ADD_NEW_FILES = '[Data] Add new files to store.data.files';
+export const UPDATE_FILE_STATUS = '[Data] Update file upload status';
 
 // Initial state of store.data (see reducers.js)
 let INIT_DATA_STATE = {
-    numClicks: 5,
-    list: []
+    files: {}
 };
 
 const dataReducer = (state = INIT_DATA_STATE, action) => {
     switch (action.type) {
-        case COUNTER_CHANGE:
-            if (!action.payload) return state;
-            return {...state, numClicks: state.numClicks + action.payload};
 
-        case NEW_LIST_ENTRY:
-            if (!action.payload || !action.payload.text) return state;
-            return {...state, list: [...state.list, action.payload]};
+        case UPLOAD_FILE:
+            return {...state, files: {...state.files, ...action.payload}};
 
-        case ADD_TO_DATA:
-            if (!action.payload) return state;
-            return {...state, list: state.list.concat(action.payload)};
+        case ADD_NEW_FILES:
+            return {...state, files: action.payload};
 
-        case UPDATE_ENTRY_STATUS:
+        case UPDATE_FILE_STATUS:
             return {
-                ...state, 
-                list: state.list.map(e => {
-                    e.status = (e.entryID === action.payload.entryID) ? action.payload.status : e.status;
-                    console.log(e);
-                    return e;
-                })
-            };
+                ...state, files: {
+                    ...state.files, ...action.payload
+                    }
+                };
 
         default:
             return state;

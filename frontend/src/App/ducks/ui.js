@@ -2,11 +2,15 @@
 
 // Types
 export const INIT_UI = '[UI] Init UI';
-export const UI_WARNING = '[UI] Display UI warning';
+export const CHANGE_MODAL = '[UI] Toggle modal state';
 
 // Initial state of store.ui (see reducers.js)
 let INIT_UI_STATE = {
-    loading: false
+    loading: false,
+    modal: {
+        isShowing: false,
+        text: ""
+    }
 };
 
 const uiReducer = (state = INIT_UI_STATE, action) => {
@@ -14,9 +18,10 @@ const uiReducer = (state = INIT_UI_STATE, action) => {
         case INIT_UI:
             // Do nothing as an api middleware already consumed this message
             return {...state};
-        case UI_WARNING:
-            console.log('Displaying UI Warning');
-            return {...state};
+
+        case CHANGE_MODAL:
+            return {...state, modal: action.payload};
+
         default:
             return state;
     }

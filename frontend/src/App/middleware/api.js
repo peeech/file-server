@@ -1,38 +1,53 @@
-import { NEW_LIST_ENTRY, UPDATE_ENTRY_STATUS, ADD_TO_DATA } from '../ducks/data';
-import { INIT_UI } from '../ducks/ui';
-import { putEntry, getAllEntries } from '../hc_api/hc_api';
+import { UPLOAD_FILE, UPDATE_FILE_STATUS, ADD_NEW_FILES } from '../ducks/data';
+import { INIT_UI, CHANGE_MODAL } from '../ducks/ui';
+import { uploadFile, getAllFiles } from '../hc_api/hc_api';
+import { createMeta, getBase64 } from '../hc_api/file_handler';
 
 const apiMiddleware = ( {dispatch} ) => next => action => {
     switch (action.type) {
         case INIT_UI:
-            getAllEntries()
-                // on receive emit ADD_TO_DATA 
+            getAllFiles()
+                // on receive emit ADD_NEW_FILES 
                 .then(r => {
                     dispatch({
-                        type: ADD_TO_DATA, 
-                        payload: r.map((e, i) => {return {entryID: i, text:e.text, status: 2}})
+                        type: ADD_NEW_FILES, 
+                        payload: r 
                     })
                 })
                 // Catch any errors 
-                .catch(e => console.log(e));        
-            
+                .catch(e => {
+                    dispatch({type: CHANGE_MODAL, payload: {
+                        isShowing: true,
+                        error: true,
+                        text: "Can't connect to the server"
+                    }});
+                    console.log(e);
+                });       
             return next(action);
 
-        case NEW_LIST_ENTRY:
-            // Reject empty string
-            if (!action.payload.text) return;
-            
-            // Send API Call
-            putEntry({text: action.payload.text})
-                // Once putEntry is succesful update its status as saved
+        case UPLOAD_FILE:
+            // Reject empty upload
+            if (!action.payload.path) return;
+
+            // Create metadata from js File object
+            let meta = createMeta(action.payload);
+
+            // Unleash getBase64
+            // and uploadFile chain
+            getBase64(action.payload)
+                .then((r) => uploadFile({meta: meta, content: r}))
+                // Once upload is succesful update its status as saved
                 .then(r => {
                     // This timeout is here to simulate network delay :-)
                     setTimeout(() => {
                         dispatch({
-                            type: UPDATE_ENTRY_STATUS, 
+                            type: UPDATE_FILE_STATUS, 
                             payload: {
-                                entryID: action.payload.entryID, 
-                                status: 2
+                                [r.filePath]: {
+                                    status: r.status,
+                                    meta: r.meta,
+                                    content: r.content // TODO: remove this line
+                                }
                             }
                         })
                     },500);
@@ -43,17 +58,21 @@ const apiMiddleware = ( {dispatch} ) => next => action => {
                     // This timeout is here to simulate network delay :-)
                     setTimeout(() => {
                         dispatch({
-                            type: UPDATE_ENTRY_STATUS, 
+                            type: UPDATE_FILE_STATUS, 
                             payload: {
-                                entryID: action.payload.entryID, 
-                                status: 0
+                                [action.payload.path]: {status: 0} 
                             }
                         })
                     },500);
-                });        
+                });
 
-            // Alter entry status to Sent
-            action.payload.status = 1;
+            // file.path is our key, because it is unique in given location
+            action.payload = {
+                [action.payload.path]: {
+                    status: 1,
+                    meta: meta
+                }
+            }
 
             // Explicitly pass action down the redux flow
             return next(action);

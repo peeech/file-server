@@ -15,7 +15,7 @@ v0.1 functions:
 * upload file
 * list all uploaded files
 * download file (!headers)
-* serve file as DOM element (!headers) - this has to work as a hcfs Gateway that is content aware
+* serve file as DOM element (!headers) - this has to work as an hcfs Gateway that is content aware to serve proper headers
 
 
 

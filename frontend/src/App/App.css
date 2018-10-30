@@ -1,0 +1,131 @@
+body {
+    padding-top: 120px;
+}
+
+.highlight {
+    padding: 20px 40px !important;
+    margin-bottom: 14px;
+    background-color: #f7f7f9;
+    border: 1px solid #e1e1e8;
+    border-radius: 6px;
+}
+
+.dropzone {
+    margin-bottom: 1rem;
+}
+
+.dropzone-bkgd {
+    position: relative;
+    width: 100%;
+    min-height: 12rem;
+    border-width: 2px;
+    border-color: #ddd;
+    border-style: dashed;
+    border-radius: 5px;
+}
+
+.dropzone-bkgd.active {
+    border-color: #ffaf54;
+}
+
+.dropzone-text {
+    color: #aaa;
+    text-align: center;
+    font-size: 1.5rem;
+    line-height: 12rem;
+}
+
+.custom-checkbox li {
+    margin: 5px 0;
+}
+
+.checkmark {
+    float: right;
+    color: #20c997;
+    font-size: 1.5rem;
+    line-height: 1rem;
+    text-align: center;
+    min-width: 1rem;
+    cursor: pointer;
+}
+.checkmark.red {
+    color: #e51c23;
+}
+
+.file-list-group {
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 7rem);
+    grid-gap: 1rem;
+    justify-content: space-between;
+}
+
+.file-list-item {
+    position: relative;
+    display: block;
+    padding: 0.6rem 1.25rem;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 4px;
+    text-align: center;
+    height: 6.3rem;
+}
+
+.file-extension {
+    height: calc(100% - 1.2rem);
+    background:#fbfbfb;
+    width: 3rem;
+    margin: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding-top: 1rem;
+}
+
+.file-extension.error
+{
+    border-color: #f00;
+}
+
+.file-extension.success
+{
+    border-color: #a7e3bd;
+}
+
+.file-name {
+    position: absolute;
+    bottom: 0.3rem;
+    left: 0.2rem;
+    right: 0.2rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.modal-active {
+    display: initial !important;
+}
+
+.modal-dialog {
+    color: #404040 !important;
+    position: absolute !important;
+    top: 50% !important;
+    transform: translate(0, -50%);
+    left: 0 !important;
+    right: 0 !important;
+    margin: auto !important;
+}
+
+.modal-body p {
+    margin: 0;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.modal.error .modal-content {
+    color: #e51c23;
+}
+
+.modal {
+    background: #65656533;
+}

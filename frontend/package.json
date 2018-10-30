@@ -4,8 +4,10 @@
   "private": true,
   "proxy": "http://localhost:4141/",
   "dependencies": {
+    "file-selector": "^0.1.5",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
+    "react-dropzone": "^7.0.1",
     "react-redux": "^5.0.7",
     "react-scripts": "2.0.4",
     "redux": "^4.0.0"

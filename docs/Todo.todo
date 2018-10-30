@@ -1,0 +1,8 @@
+Short term:
+    ☐ Try reading from state and printing jpeg content into thumbnail
+
+    ☐ Create fileHandler backend
+    ☐ Read from DHT and create DHT -> BLOB -> URL
+    ☐ Download from DHT
+
+    ☐ Chop big files
