@@ -69,7 +69,7 @@ body {
     border: 1px solid rgba(0, 0, 0, 0.125);
     border-radius: 4px;
     text-align: center;
-    height: 6.3rem;
+    height: 6.8rem;
 }
 
 .file-extension {
@@ -79,7 +79,7 @@ body {
     margin: auto;
     border: 1px solid #ddd;
     border-radius: 4px;
-    padding-top: 1rem;
+    padding-top: 1.2rem;
 }
 
 .file-extension.error
@@ -100,6 +100,31 @@ body {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    font-size: 0.9em;
+}
+
+.file-preview {
+    position: relative;
+    width: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.file-preview img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 0.7em;
+}
+
+.file-preview::after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+
 }
 
 .modal-active {

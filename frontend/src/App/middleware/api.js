@@ -1,4 +1,4 @@
-import { UPLOAD_FILE, UPDATE_FILE_STATUS, ADD_NEW_FILES } from '../ducks/data';
+import { UPLOAD_FILE, UPDATE_FILE_STATUS, ADD_NEW_FILES, POLL_SERVER } from '../ducks/data';
 import { INIT_UI, CHANGE_MODAL } from '../ducks/ui';
 import { uploadFile, getAllFiles } from '../hc_api/hc_api';
 import { createMeta, getBase64 } from '../hc_api/file_handler';
@@ -6,6 +6,7 @@ import { createMeta, getBase64 } from '../hc_api/file_handler';
 const apiMiddleware = ( {dispatch} ) => next => action => {
     switch (action.type) {
         case INIT_UI:
+        case POLL_SERVER:
             getAllFiles()
                 // on receive emit ADD_NEW_FILES 
                 .then(r => {

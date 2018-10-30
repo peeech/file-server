@@ -43,3 +43,29 @@ export const createMeta = (file) => ({
     size: file.size,
     type: file.type
 })
+
+
+/**
+ * Return if an image can have preview created with help of getImageAsUrl
+ * @param  {string} type - MIME type of an image
+ * @return {bool} Yes or no
+ */
+export const canPreview = (type) => (
+    type === "image/jpeg" || type === "image/png"
+)
+
+
+/**
+ * Create image from base64 encoded content
+ * @param  {object} file - file object
+ * @param  {object} file.meta - file metadata
+ * @param  {string} file.content - file content base64 encoded
+ * @return {string} url to the blob
+ */
+export const getImageAsUrl = (file) => {
+    if (!canPreview(file.meta.type)) return "";
+
+    // Format base64 back to blob-format:
+    return "data:" + file.meta.type + ";base64," + file.content;
+
+}
