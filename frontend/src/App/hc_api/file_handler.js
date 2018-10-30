@@ -59,13 +59,13 @@ export const canPreview = (type) => (
  * Create image from base64 encoded content
  * @param  {object} file - file object
  * @param  {object} file.meta - file metadata
- * @param  {string} file.content - file content base64 encoded
+ * @param  {string} file.preview - file content base64 encoded
  * @return {string} url to the blob
  */
 export const getImageAsUrl = (file) => {
     if (!canPreview(file.meta.type)) return "";
 
     // Format base64 back to blob-format:
-    return "data:" + file.meta.type + ";base64," + file.content;
+    return "data:" + file.meta.type + ";base64," + file.preview;
 
 }

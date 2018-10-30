@@ -47,7 +47,8 @@ const apiMiddleware = ( {dispatch} ) => next => action => {
                                 [r.filePath]: {
                                     status: r.status,
                                     meta: r.meta,
-                                    content: r.content // TODO: remove this line
+                                    preview: r.preview,
+                                    hash: r.hash
                                 }
                             }
                         })

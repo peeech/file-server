@@ -1,7 +1,16 @@
 Short term:
-    ☐ Create fileHandler backend
+    ☐ downloadFile() - frontend and server side
 
-    ☐ Download from DHT
-    ☐ Add file hash
+    ☐ Add folder support
+    ☐ Add current path to frontend (pwd)
 
     ☐ Chop big files - https://stackoverflow.com/questions/16245767/creating-a-blob-from-a-base64-string-in-javascript
+    ☐ Stream from backend
+
+
+
+
+
+
+    getPreview(hash):
+    ☐ Need to create endpoint that would return base64 data (or file with headers) with some way to query

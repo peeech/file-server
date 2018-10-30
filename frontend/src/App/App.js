@@ -10,9 +10,9 @@ class App extends Component {
         store.dispatch({type: INIT_UI});
 
         // Start polling server for new data
-        setInterval(() => {
+        /*setInterval(() => {
             store.dispatch({type: POLL_SERVER});
-        }, 5000);
+        }, 5000);*/
     }
 
     render() {

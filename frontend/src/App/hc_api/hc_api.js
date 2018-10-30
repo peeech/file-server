@@ -24,8 +24,8 @@ const fetchPOST = (endpoint, data) => {
  * @return {Promise} Promise of a fetched result in a form of an array of objects - files in current location
  */
 export const getAllFiles = () => {
-    // return fetchPOST('/fn/fileHandler/getAllFiles').then(r => r.json());
-    return new Promise((resolve, reject) => {
+    return fetchPOST('/fn/fileHandler/getAllFiles').then(r => r.json());
+    /* return new Promise((resolve, reject) => {
         setTimeout(() => {
             resolve(
                 {
@@ -76,7 +76,7 @@ export const getAllFiles = () => {
                 }
             )
         }, 200);
-    });
+    });*/
 }
 
 /**
@@ -87,9 +87,9 @@ export const getAllFiles = () => {
  * @return {Promise} Promise of a posted upload
  */
 export const uploadFile = (obj) => {
-    // return fetchPOST('/fn/fileHandler/uploadFile', obj).then(r => r.json());
+    return fetchPOST('/fn/fileHandler/uploadFile', obj).then(r => r.json());
     //console.log(obj);
-    return new Promise((resolve, reject) => {
+    /*return new Promise((resolve, reject) => {
         setTimeout(() => {
             resolve({
                 filePath: obj.meta.path,
@@ -98,5 +98,5 @@ export const uploadFile = (obj) => {
                 status: 2
             })
         }, 200);
-    });
+    });*/
 }

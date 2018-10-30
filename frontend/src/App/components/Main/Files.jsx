@@ -3,7 +3,7 @@ import { getExtension, getImageAsUrl, canPreview } from '../../hc_api/file_handl
 
 const printFile = (file) => {
     // Print nice picture if file is an image
-    if (canPreview(file.meta.type)) {
+    if (canPreview(file.preview && file.meta.type)) {
         return (
             <div className="file-preview"><img alt="loading..." src={getImageAsUrl(file)}/></div>
         )
