@@ -16,14 +16,38 @@ const printFile = (file) => {
     )
 }
 
+const isSelectedClass = (hash, selectedHash) => {
+    return (selectedHash === hash) ? "file-list-item selected" : "file-list-item";
+}
+
 export default (props) => (
     <div>
         <ul className="file-list-group">
-            {Object.keys(props.files).map((k, i) => {
+            {Object.keys(props.folders).map((k, i) => {
+                let el = props.folders[k];
                 return (
-                <li className="file-list-item" key={i}>
-                    {printFile(props.files[k])}
-                    <div className="file-name" title={props.files[k].meta.name}>{props.files[k].meta.name}</div>
+                <li 
+                    className={isSelectedClass(el.hash, props.selected)} 
+                    key={i} 
+                    onClick={props.handleEntryClick.bind(this, el.hash)}
+                    onDoubleClick={props.handleEntryDblClick.bind(this, el.hash)}
+                    >
+                    {printFile(el)}
+                    <div className="file-name" title={el.meta.name}>{el.meta.name}</div>
+                </li>
+            )})}
+
+            {Object.keys(props.files).map((k, i) => {
+                let el = props.files[k];
+                return (
+                <li 
+                    className={isSelectedClass(el.hash, props.selected)} 
+                    key={i} 
+                    onClick={props.handleEntryClick.bind(this, el.hash)}
+                    onDoubleClick={props.handleEntryDblClick.bind(this, el.hash)}
+                    >
+                    {printFile(el)}
+                    <div className="file-name" title={el.meta.name}>{el.meta.name}</div>
                 </li>
             )})}
         </ul>

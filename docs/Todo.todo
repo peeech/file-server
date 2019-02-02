@@ -1,16 +1,64 @@
-Short term:
+v0.2:
+
+    ☐ Backend needs to recognize path and create new folders if needed - replies with a stored object
+    ☐ formatFileForUI has to do simmilar logic
+    ☐ New folder button
+    ☐ Create folder type thumbnail
+
+
+
+    ☐ Make a graph of data structure with all the comments + the process + where is data actually stored
+    ☐ Polling will create new folders - deal with that
+
+    ☐ Get user's hash from server on UI_INIT
+    ☐ Resolve name collisions, display uploader's name and compare hash to identify duplicate
+
+v0.3:
     ☐ downloadFile() - frontend and server side
+    ☐ http://www.alexhadik.com/blog/2016/7/7/l8ztp8kr5lbctf5qns4l8t3646npqh
+    ☐ Delete files
 
-    ☐ Add folder support
-    ☐ Add current path to frontend (pwd)
-
+v0.4:
     ☐ Chop big files - https://stackoverflow.com/questions/16245767/creating-a-blob-from-a-base64-string-in-javascript
-    ☐ Stream from backend
+    ☐ Stream from backend or how to deal with video?
+
+v0.5:    
+    ☐ File preview mode
+    ☐ List vs thumb view
+    ☐ Change UI
+    ☐ Upload area is entire window
 
 
 
 
 
 
-    getPreview(hash):
-    ☐ Need to create endpoint that would return base64 data (or file with headers) with some way to query
+
+
+Needs:
+    ☐ necesary rollbacks - bundle?
+
+    For serving files via GET:
+        ☐ Server needs to read get parameters (eg: hash, mime-type)
+        ☐ Zome needs to be able to set headers (eg: 'Content-Type:' + mime-type)
+        ☐ example of header: 'Content-Type: image/png'
+        ☐ /fn/getFile?hash=892abd7a7838b89d8bc98bcbf98e&mime-type=image/png
+        or:
+        ☐ if server can parse url then it's even cooler:
+        ☐ /fn/getFile/892abd7a7838b89d8bc98bcbf98e.png
+
+    For file download:
+        ☐ data has to be in BLOB - saves a lot of computation on server, data stored as base64 is 33% bigger
+        ☐ request only via GET - download not possible via websockets
+        ☐ GET response has fixed headers - lots of them to force download
+        ☐ would be great to keep connection open and push chunks down the pipe without writing in memory
+        or:
+        ☐ the way I'm doing it now is fairly convoluted
+
+    ☐ local caching of DHT content?
+
+    Let's take it even further:
+        ☐ hcfs replies as gateway on address .../hcfs/<hash>
+        ☐ this can be extended to a lot of stuff (.../calDav, .../cardDav)
+        ☐ For synching of the files between devices one can build an app that stores binary data in side the file, not in some obscure location
+        

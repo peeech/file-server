@@ -33,16 +33,20 @@ export const getBase64 = (file) => {
 
 /**
  * Create metadata object of the file form file object
- * @param  {file} file - js File object read from DragDrop area
+ * @param {file} file - js File object read from DragDrop area
+ * @param {string} location - location of the working directory in the folder tree (pwd)
  * @return {object} Containing  metadata of the file
  */
-export const createMeta = (file) => ({
-    lastModified: file.lastModified,
-    name: file.name,
-    path: file.path,
-    size: file.size,
-    type: file.type
-})
+export const createMeta = (file, location) => {
+    let path = location + file.path.replace(/^\//g, '');
+    return {
+        lastModified: file.lastModified,
+        name: file.name,
+        path: path,
+        size: file.size,
+        type: file.type
+    }
+}
 
 
 /**
@@ -69,3 +73,33 @@ export const getImageAsUrl = (file) => {
     return "data:" + file.meta.type + ";base64," + file.preview;
 
 }
+
+/**
+ * Format file data for state.files
+ * file.path is a key in our file object, because it is unique in given location
+ * If a file is in a current location, then display file proxy
+ * otherwise display folder proxy if it does not exist yet
+ * 
+ * Also resolve name conflicts form different users
+ * 
+ * @param {object} file - file object
+ * @param {string} file.meta - file metadata
+ * @param {string} location - current location in the folder tree
+ * @return {object} data ready to insert into state.files
+ */
+export const formatFileForUI = (file, location) => {
+
+
+
+    return {
+                [file.meta.path]: {
+                    status: file.status,
+                    meta: file.meta,
+                    preview: file.preview,
+                    hash: file.hash,
+                    creator: 'localhost',
+                    isFolder: file.isFolder
+                }
+            }
+}
+

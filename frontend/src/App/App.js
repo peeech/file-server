@@ -12,7 +12,7 @@ class App extends Component {
         // Start polling server for new data
         /*setInterval(() => {
             store.dispatch({type: POLL_SERVER});
-        }, 5000);*/
+        }, 3000);*/
     }
 
     render() {

@@ -16,7 +16,8 @@ function uploadFile(obj) {
     // Create metadata entry
     var fileMeta = {
         meta: obj.meta,
-        content: [contentHash]
+        content: [contentHash],
+        creator: App.Agent.Hash
     }
 
     // Commit entry to DHT
@@ -31,11 +32,13 @@ function uploadFile(obj) {
 
     // Return file meta info
     return {
-        filePath: obj.meta.path,
+        path: obj.meta.path,
         meta: obj.meta,
+        creator: App.Agent.Hash,
         hash: fileHash,
         preview: generateEntryPreview(fileMeta.meta.type, fileMeta.meta.size, fileMeta.content[0], obj.content),
-        status: 2
+        status: 2,
+        isFolder: false
     };
 }
 
@@ -103,6 +106,15 @@ function generateEntryPreview(type, size, contentHash, contentBytes) {
                 // Query for contentHash
                 return get(contentHash);
             }
+}
+
+
+/**
+ * Generate random integer 0...10E15
+ * @return {int} random int
+ */
+function generateRandomInt() {
+    return Math.floor(Math.random() * 1000000000000000);
 }
 
 

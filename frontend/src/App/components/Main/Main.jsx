@@ -6,31 +6,35 @@ import Dropzone from './Dropzone';
 import Files from './Files';
 import Modal from '../common/Modal';
 import { UPLOAD_FILE } from '../../ducks/data';
+import { CHANGE_MODAL, UPDATE_SELECTED } from '../../ducks/ui';
 
 const Main = (props) => {
     let { files, ...fileMethods} = props;
 
-        return (
-            <div>
-                <Header/>
-                <div className="container">
-                    <div className="row">
-                        <div className="col-lg-8 m-auto highlight">
-                            <Modal />
-                            <Dropzone {...fileMethods} />
-                            <Files files={files} />
-                        </div>
+    return (
+        <div>
+            <Header {...props}/>
+            <div className="container">
+                <div className="row">
+                    <div className="col-lg-8 m-auto highlight">
+                        <Modal />
+                        <Dropzone {...fileMethods} />
+                        <Files {...props} />
                     </div>
-                    <Footer/>
                 </div>
+                <Footer/>
             </div>
-        )
+        </div>
+    )
 }
 
 // Mapping of Redux state to Component's props
 const mapStateToProps = ( state ) => {
     return {
-        files: state.data.files
+        files: state.data.files,
+        folders: state.data.folders,
+        selected: state.ui.selected,
+        location: state.ui.location
     }
 };
 
@@ -42,6 +46,32 @@ const mapDispatchToProps = ( dispatch ) => {
             dispatch({
                 type: UPLOAD_FILE,
                 payload: file
+            });
+        },
+        handleNewFolder: () => {
+            dispatch({
+                type: CHANGE_MODAL, 
+                payload: {
+                    isShowing: true,
+                    error: false,
+                    text: "This will create a new folder"
+                }
+            });
+        },
+        handleEntryClick: (hash) => {
+            dispatch({
+                type: UPDATE_SELECTED, 
+                payload: hash
+            });
+        },
+        handleEntryDblClick: (hash) => {
+            dispatch({
+                type: CHANGE_MODAL, 
+                payload: {
+                    isShowing: true,
+                    error: false,
+                    text: "Acting on hash " + hash
+                }
             });
         }
     }
